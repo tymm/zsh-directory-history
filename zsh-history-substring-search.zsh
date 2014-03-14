@@ -207,6 +207,9 @@ function _history-substring-search-begin() {
     #
     #_history_substring_search_matches=(${(kon)history[(R)(#$HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS)*${_history_substring_search_query_escaped}*]})
     _history_substring_search_matches=("${(@f)$(directory_history.py -s ${_history_substring_search_query_escaped} -d $(pwd))}")
+    if [[ $#_history_substring_search_matches -eq 1 ]]; then
+      _history_substring_search_matches=()
+    fi
 
     #
     # Define the range of values that $_history_substring_search_match_index
