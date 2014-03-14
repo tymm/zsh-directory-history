@@ -18,17 +18,17 @@ function log_directory() {
 	export DIR_HISTORY
 }
 
-# Call generate_history() everytime the directory is changed
-chpwd_functions=(${chpwd_functions[@]} "generate_history")
 # Call log_directory() everytime the directory is changed
 chpwd_functions=(${chpwd_functions[@]} "log_directory")
+# Call generate_history() everytime the directory is changed
+chpwd_functions=(${chpwd_functions[@]} "generate_history")
 
-# Call generate_history() everytime the user opens a prompt
-precmd_functions=(${precmd_functions[@]} "generate_history")
 # Call log_directory() everytime the user opens a prompt
 precmd_functions=(${precmd_functions[@]} "log_directory")
+# Call generate_history() everytime the user opens a prompt
+precmd_functions=(${precmd_functions[@]} "generate_history")
 
-# Call generate_history() everytime a command is executed
-preexec_functions=(${preexec_functions[@]} "generate_history")
 # Call log_command() everytime a command is executed
 preexec_functions=(${preexec_functions[@]} "log_command")
+# Call generate_history() everytime a command is executed
+preexec_functions=(${preexec_functions[@]} "generate_history")
