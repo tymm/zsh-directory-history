@@ -1,19 +1,20 @@
 NAME
-====
+----
 
 directory-history - a better history for zsh
 
 DESCRIPTION
-===========
+-----------
 
 directory-history is a plugin for the zsh which provides you with a per directory history which can fall back on a global history.  
+
 It will fall back on a global history if there are no suggestions for the directory any more.  
-It will create an advanced history under `.directory_history` in your home directory.
+It will create an advanced history under `.directory_history` in your home directory.  
 This plugin was built to work together with the awesome _zsh-history-substring-search_ plugin.
 Therefore it is necessary to provide a modified version of the _zsh-history-substring-search_ plugin.
 
 INSTALL
-=======
+-------
 
 First you have to copy `directory_history.py` and `directory_logger.py` to `/usr/bin` or any other directory which is included in your PATH environment variable.
 
