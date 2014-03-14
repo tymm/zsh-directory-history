@@ -27,6 +27,7 @@ INSTALL
 		 sudo chmod +x directory_history.py directory_logger.py
 
 3. Include plugins to your _.zshrc_
+
 * If you are already using the _zsh-history-substring-search_ plugin, please remove it now from your _.zshrc_ file.
 
 * Now you have to include both `directory-history.plugin.zsh` and the modified version of `zsh-history-substring-search.zsh` into your _.zshrc_ file.  
