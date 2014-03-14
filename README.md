@@ -16,17 +16,24 @@ Therefore it is necessary to provide a modified version of the _zsh-history-subs
 INSTALL
 -------
 
-First you have to copy `directory_history.py` and `directory_logger.py` to `/usr/bin` or any other directory which is included in your PATH environment variable.
+1. Copy `directory_history.py` and `directory_logger.py` to `/usr/bin` or any other directory which is included in your PATH environment variable  
 
-This is followed by `cd /usr/bin && chmod +x directory_history.py directory_logger.py`.
+         cp directory_history.py /usr/bin/directory_history.py
+         cp directory_logger.py /usr/bin/directory_logger.py
 
-If you are already using the _zsh-history-substring-search_ plugin, please remove it now from your _.zshrc_ file.
+2. Adjust permissions
 
-Now you have to include both `directory-history.plugin.zsh` and the modified version of `zsh-history-substring-search.zsh` into your _.zshrc_ file.  
+         cd /usr/bin
+		 sudo chmod +x directory_history.py directory_logger.py
+
+3. Include plugins to your _.zshrc_
+* If you are already using the _zsh-history-substring-search_ plugin, please remove it now from your _.zshrc_ file.
+
+* Now you have to include both `directory-history.plugin.zsh` and the modified version of `zsh-history-substring-search.zsh` into your _.zshrc_ file.  
 You can do that by appending those lines to your _.zshrc_ file.  
 
          source /path/to/modified/zsh-history-substring-search.zsh
 		 source /path/to/directory-history.plugin.zsh
 
-All you have left to do now is to configure the _zsh-history-substring-search_ plugin (if you didn't already had it configured).  
+4. Configure the _zsh-history-substring-search_ plugin (if you didn't already)  
 For that take a look here: https://github.com/zsh-users/zsh-history-substring-search
