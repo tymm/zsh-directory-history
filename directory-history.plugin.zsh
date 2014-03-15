@@ -1,4 +1,4 @@
-# Don't name the prompt DIR_IMPROVED
+# Don't name the prompt DIR_HISTORY
 unsetopt autonamedirs
 
 # Generates a new history for the current directory
@@ -32,3 +32,32 @@ precmd_functions=(${precmd_functions[@]} "generate_history")
 preexec_functions=(${preexec_functions[@]} "log_command")
 # Call generate_history() everytime a command is executed
 preexec_functions=(${preexec_functions[@]} "generate_history")
+
+INDEX_HISTORY=0
+
+directory-history-search-backward() {
+	if [[ $INDEX_HISTORY -gt 0 ]] && (( INDEX_HISTORY=$INDEX_HISTORY - 1 ))
+	COMMAND=$(directory_history.py -i $INDEX_HISTORY -d $DIR_HISTORY)
+
+	zle kill-whole-line
+	BUFFER=$COMMAND
+	zle end-of-line
+	zle vi-backward-char
+}
+
+directory-history-search-forward() {
+	(( INDEX_HISTORY=$INDEX_HISTORY + 1 ))
+	COMMAND=$(directory_history.py -i $INDEX_HISTORY -d $DIR_HISTORY)
+
+	if [[ $? -eq 1 ]]; then
+		(( INDEX_HISTORY=$INDEX_HISTORY - 1 ))
+	else
+		zle kill-whole-line
+		BUFFER=$COMMAND
+		zle end-of-line
+		zle vi-backward-char
+	fi
+}
+
+zle -N directory-history-search-backward
+zle -N directory-history-search-forward
