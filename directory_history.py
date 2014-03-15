@@ -42,7 +42,7 @@ def get_commands_in_directory(directory):
 
     return commands
 
-def get_indices_by_substring(directory, substring):
+def get_indices_by_substring_and_directory(directory, substring):
     commands = get_commands_in_directory(directory)
 
     indices = []
@@ -84,7 +84,7 @@ if len(sys.argv) == 5 and (sys.argv[1] == "-s" or sys.argv[1] == "--substring") 
     directory = sys.argv[4]
     substring = sys.argv[2]
 
-    indices = [str(i) for i in get_indices_by_substring(directory, substring)]
+    indices = [str(i) for i in get_indices_by_substring_and_directory(directory, substring)]
     print "\n".join(indices)
 
 # Return the i-th command in a certain directory
