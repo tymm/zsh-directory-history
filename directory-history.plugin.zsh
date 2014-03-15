@@ -33,11 +33,14 @@ preexec_functions=(${preexec_functions[@]} "log_command")
 # Call generate_history() everytime a command is executed
 preexec_functions=(${preexec_functions[@]} "generate_history")
 
-INDEX_HISTORY=0
+# generate_history() gets executed after the following so we have to generate it here to get access to $history_dir
+history_dir=("${(@f)$(directory_history.py -a -d $(pwd))}")
 
-directory-history-search-backward() {
+INDEX_HISTORY=$#history_dir
+
+directory-history-search-forward() {
 	if [[ $INDEX_HISTORY -gt 0 ]] && (( INDEX_HISTORY=$INDEX_HISTORY - 1 ))
-	COMMAND=$(directory_history.py -i $INDEX_HISTORY -d $DIR_HISTORY)
+	COMMAND=$history_dir[$INDEX_HISTORY]
 
 	zle kill-whole-line
 	BUFFER=$COMMAND
@@ -45,11 +48,11 @@ directory-history-search-backward() {
 	zle vi-backward-char
 }
 
-directory-history-search-forward() {
+directory-history-search-backward() {
 	(( INDEX_HISTORY=$INDEX_HISTORY + 1 ))
-	COMMAND=$(directory_history.py -i $INDEX_HISTORY -d $DIR_HISTORY)
+	COMMAND=$history_dir[$INDEX_HISTORY]
 
-	if [[ $? -eq 1 ]]; then
+	if [[ $COMMAND == "" ]]; then
 		(( INDEX_HISTORY=$INDEX_HISTORY - 1 ))
 	else
 		zle kill-whole-line

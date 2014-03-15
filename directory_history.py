@@ -59,19 +59,6 @@ def get_indices_by_substring_and_directory(directory, substring):
 
     return indices_unique
 
-def get_command_by_index_and_directory(index, directory):
-    i = 0
-    for line in reversed(open(home + "/" + HISTFILE, "r").readlines()):
-        directory_hist, command = split_after_first_semicolon(line.rstrip())
-
-        if directory_hist == directory and index == i:
-            print command
-            return 0
-        elif directory_hist == directory:
-            i += 1
-
-    return 1
-
 # Return complete history for a directory if -a/-all -d DIRECTORY are arguments
 if len(sys.argv) == 4 and (sys.argv[1] == "-a" or sys.argv[1] == "--all") and (sys.argv[2] == "-d"):
     directory = sys.argv[3]
@@ -86,14 +73,3 @@ if len(sys.argv) == 5 and (sys.argv[1] == "-s" or sys.argv[1] == "--substring") 
 
     indices = [str(i) for i in get_indices_by_substring_and_directory(directory, substring)]
     print "\n".join(indices)
-
-# Return the i-th command in a certain directory
-# directory_history.py -i/--index INDEX -d DIRECTORY
-if len(sys.argv) == 5 and (sys.argv[1] == "-i" or sys.argv[1] == "--index") and sys.argv[3] == "-d":
-    directory = sys.argv[4]
-    index = int(sys.argv[2])
-
-    if get_command_by_index_and_directory(index, directory) == 0:
-        sys.exit(0)
-    else:
-        sys.exit(1)
