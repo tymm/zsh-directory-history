@@ -13,6 +13,8 @@ It will create an advanced history under `.directory_history` in your home direc
 This plugin was built to work together with the awesome _zsh-history-substring-search_ plugin.
 Therefore it is necessary to provide a modified version of the _zsh-history-substring-search_ plugin.
 
+Since _directory-history_ comes with it's own history, it will need some time to fill up it's history and until it becomes useful.
+
 INSTALL
 -------
 
