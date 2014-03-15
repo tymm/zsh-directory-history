@@ -5,6 +5,10 @@ unsetopt autonamedirs
 function generate_history() {
 	history_dir=("${(@f)$(directory_history.py -a -d $(pwd))}")
 	export history_dir
+	MAX_INDEX_HISTORY=$#history_dir
+	export MAX_INDEX_HISTORY
+	INDEX_HISTORY=$#history_dir
+	export INDEX_HISTORY
 }
 
 # Append to history file
@@ -36,12 +40,12 @@ preexec_functions=(${preexec_functions[@]} "generate_history")
 # generate_history() gets executed after the following so we have to generate it here to get access to $history_dir
 history_dir=("${(@f)$(directory_history.py -a -d $(pwd))}")
 
-INDEX_HISTORY=$#history_dir
-
 directory-history-search-forward() {
-	if [[ $INDEX_HISTORY -gt 0 ]] && (( INDEX_HISTORY=$INDEX_HISTORY - 1 ))
-	COMMAND=$history_dir[$INDEX_HISTORY]
+	# Go forward as long as possible; Last command is at $history_dir[1]
+	if [[ $INDEX_HISTORY -ne 1 ]] && (( INDEX_HISTORY-- ))
 
+	# Get command and put it into the buffer
+	COMMAND=$history_dir[$INDEX_HISTORY]
 	zle kill-whole-line
 	BUFFER=$COMMAND
 	zle end-of-line
@@ -49,12 +53,16 @@ directory-history-search-forward() {
 }
 
 directory-history-search-backward() {
-	(( INDEX_HISTORY=$INDEX_HISTORY + 1 ))
-	COMMAND=$history_dir[$INDEX_HISTORY]
+	# Go back as long as possible; First command is at $history_dir[$MAX_INDEX_HISTORY]
+	if [[ $INDEX_HISTORY -ne (( $MAX_INDEX_HISTORY + 1 )) ]] && (( INDEX_HISTORY++ ))
 
-	if [[ $COMMAND == "" ]]; then
-		(( INDEX_HISTORY=$INDEX_HISTORY - 1 ))
+	# If index is greater than the maximal index
+	if [[ $INDEX_HISTORY -gt $MAX_INDEX_HISTORY ]]; then
+		# Go back to blank
+		BUFFER=""
 	else
+		# Get command and put it into the buffer
+		COMMAND=$history_dir[$INDEX_HISTORY]
 		zle kill-whole-line
 		BUFFER=$COMMAND
 		zle end-of-line
