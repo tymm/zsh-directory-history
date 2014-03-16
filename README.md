@@ -1,5 +1,7 @@
-directory-history - a better history for zsh
-============================================
+directory-history
+=================
+
+A better history for zsh.
 
 DESCRIPTION
 -----------
