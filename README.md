@@ -1,7 +1,5 @@
-NAME
-----
-
 directory-history - a better history for zsh
+============================================
 
 DESCRIPTION
 -----------
