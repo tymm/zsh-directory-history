@@ -11,7 +11,7 @@ directory-history is a plugin for the zsh which provides you with a per director
 It will fall back on a global history if there are no suggestions for the directory any more.  
 It will create an advanced history under `.directory_history` in your home directory.  
 This plugin was built to work together with the awesome _zsh-history-substring-search_ plugin.
-Therefore it is necessary to provide a modified version of the _zsh-history-substring-search_ plugin.
+Therefore it is necessary to use a modified version of the _zsh-history-substring-search_ plugin.
 
 Since _directory-history_ comes with it's own history, it will need some time to fill up it's history and until it becomes useful.
 
@@ -36,5 +36,16 @@ INSTALL
              source /path/to/modified/zsh-history-substring-search.zsh
              source /path/to/directory-history.plugin.zsh
 
-4. Configure the _zsh-history-substring-search_ plugin (if you didn't already)  
-For that take a look here: https://github.com/zsh-users/zsh-history-substring-search
+4. Bind keyboard shortcuts in your _.zshrc_
+You can bind `history-substring-search-up`/`history-substring-search-down` for substring search and `directory-history-search-forward`/`directory-history-search-backward` for cycling through your per directory history one by one.  
+For example:
+
+         # Bind CTRL+k and CTRL+j to substring search
+         bindkey '^j' history-substring-search-up
+         bindkey '^k' history-substring-search-down
+
+         # Bind k and j for VI mode to go through history
+         bindkey -M vicmd 'j' directory-history-search-backward
+         bindkey -M vicmd 'k' directory-history-search-forward
+
+For more information on how to configure the substring search take a look here: https://github.com/zsh-users/zsh-history-substring-search
