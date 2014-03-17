@@ -7,7 +7,7 @@ function generate_history() {
 	export history_dir
 	MAX_INDEX_HISTORY=$#history_dir
 	export MAX_INDEX_HISTORY
-	INDEX_HISTORY=$#history_dir
+	(( INDEX_HISTORY = $#history_dir + 1 ))
 	export INDEX_HISTORY
 }
 
