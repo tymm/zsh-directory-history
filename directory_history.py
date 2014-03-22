@@ -16,6 +16,16 @@ home = expanduser("~")
 def split_after_first_semicolon(text):
     return text.split(";", 1)
 
+def remove_duplicates(commands):
+    seen = None
+    no_duplicates = []
+    for cmd in commands:
+        if cmd != seen:
+            no_duplicates.append(cmd)
+            seen = cmd
+
+    return no_duplicates
+
 def get_commands_in_directory(directory):
     commands_dir = []
     commands_not_dir = []
@@ -39,6 +49,9 @@ def get_commands_in_directory(directory):
     # More important/recent commands go towards the end of the list
     # Thats why commands_dir comes after commands_not_dir
     commands = commands_not_dir + commands_dir
+
+    # Removing duplicates which are next to each other
+    commands = remove_duplicates(commands)
 
     return commands
 
