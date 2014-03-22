@@ -85,4 +85,7 @@ if len(sys.argv) == 5 and (sys.argv[1] == "-s" or sys.argv[1] == "--substring") 
     substring = sys.argv[2]
 
     indices = [str(i) for i in get_indices_by_substring_and_directory(directory, substring)]
-    print "\n".join(indices)
+    if indices:
+        print "\n".join(indices)
+    else:
+        print "NONE"
