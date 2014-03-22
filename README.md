@@ -20,15 +20,15 @@ Since _directory-history_ comes with it's own history, it will need some time to
 INSTALL
 -------
 
-1. Copy `directory_history.py` and `directory_logger.py` to `/usr/bin` or any other directory which is included in your PATH environment variable  
+1. Copy `dirhist` and `dirlog` to `/usr/bin` or any other directory which is included in your PATH environment variable  
 
-         cp directory_history.py /usr/bin/directory_history.py
-         cp directory_logger.py /usr/bin/directory_logger.py
+         cp dirhist /usr/bin/dirhist
+         cp dirlog /usr/bin/dirlog
 
 2. Adjust permissions
 
          cd /usr/bin
-         sudo chmod +x directory_history.py directory_logger.py
+         sudo chmod +x dirhist dirlog
 
 3. Source plugins from your _.zshrc_
    * If you are already using the _zsh-history-substring-search_ plugin, please remove it now from your _.zshrc_ file.

@@ -79,7 +79,7 @@ if len(sys.argv) == 4 and (sys.argv[1] == "-a" or sys.argv[1] == "--all") and (s
     print "\n".join(get_commands_in_directory(directory))
 
 # Return list of indizes which match a given substring
-# directory_history.py -s/--substring SUBSTRING -d DIRECTORY
+# dirhist -s/--substring SUBSTRING -d DIRECTORY
 if len(sys.argv) == 5 and (sys.argv[1] == "-s" or sys.argv[1] == "--substring") and sys.argv[3] == "-d":
     directory = sys.argv[4]
     substring = sys.argv[2]
