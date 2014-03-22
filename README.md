@@ -3,6 +3,8 @@ directory-history
 
 A per directory history for zsh.
 
+![img](https://github.com/tymm/directory-history/wiki/demo.gif)
+
 DESCRIPTION
 -----------
 
