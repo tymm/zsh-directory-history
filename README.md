@@ -35,8 +35,8 @@ INSTALL
    * Now you have to include both `directory-history.plugin.zsh` and the modified version of `zsh-history-substring-search.zsh` into your _.zshrc_ file.  
    You can do that by appending those lines to your _.zshrc_ file.  
 
-             source /path/to/modified/zsh-history-substring-search.zsh
              source /path/to/directory-history.plugin.zsh
+             source /path/to/modified/zsh-history-substring-search.zsh
 
 4. Bind keyboard shortcuts in your _.zshrc_  
 You can bind `history-substring-search-up`/`history-substring-search-down` for substring search and `directory-history-search-forward`/`directory-history-search-backward` for cycling through your per directory history one by one.  
