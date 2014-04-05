@@ -3,7 +3,7 @@ unsetopt autonamedirs
 
 # Generates a new history for the current directory
 function generate_history() {
-	history_dir=("${(@f)$(dirhist -a -d $(pwd))}")
+	history_dir=("${(@f)$(dirhist -a -d $PWD)}")
 	export history_dir
 	MAX_INDEX_HISTORY=$#history_dir
 	export MAX_INDEX_HISTORY
@@ -13,12 +13,12 @@ function generate_history() {
 
 # Append to history file
 function log_command() {
-	dirlog $1 $(pwd)
+	dirlog $1 $PWD
 }
 
 # Export the current directory
 function log_directory() {
-	DIR_HISTORY=$(pwd)
+	DIR_HISTORY=$PWD
 	export DIR_HISTORY
 }
 
@@ -38,7 +38,7 @@ preexec_functions=(${preexec_functions[@]} "log_command")
 preexec_functions=(${preexec_functions[@]} "generate_history")
 
 # generate_history() gets executed after the following so we have to generate it here to get access to $history_dir
-history_dir=("${(@f)$(dirhist -a -d $(pwd))}")
+history_dir=("${(@f)$(dirhist -a -d $PWD)}")
 
 directory-history-search-forward() {
 	# Go forward as long as possible; Last command is at $history_dir[1]

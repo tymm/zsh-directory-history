@@ -206,7 +206,7 @@ function _history-substring-search-begin() {
     #      options. They can be turned off by (ON).
     #
     #_history_substring_search_matches=(${(kon)history[(R)(#$HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS)*${_history_substring_search_query_escaped}*]})
-    _history_substring_search_matches=("${(@f)$(dirhist -s "${_history_substring_search_query_escaped}" -d $(pwd))}")
+    _history_substring_search_matches=("${(@f)$(dirhist -s "${_history_substring_search_query_escaped}" -d $PWD)}")
     if [[ $#_history_substring_search_matches -eq 0 || $_history_substring_search_matches[1] == "NONE" ]]; then
       _history_substring_search_matches=()
     fi
