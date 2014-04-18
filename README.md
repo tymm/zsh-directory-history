@@ -21,9 +21,10 @@ INSTALL
 -------
 
 1. Install needed python scripts
+
          sudo pip install zsh-directory-history
 
-(Or copy `dirhist` and `dirlog` to `/usr/bin` manually and make them executable with `sudo chmod +x /usr/bin/dirhist /usr/bin/dirlog`)
+  (Or copy `dirhist` and `dirlog` to `/usr/bin` manually and make them executable with `sudo chmod +x /usr/bin/dirhist /usr/bin/dirlog`)
 
 2. Source plugins from your _.zshrc_
    * If you are already using the _zsh-history-substring-search_ plugin, please remove it now from your _.zshrc_ file.
