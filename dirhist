@@ -33,14 +33,22 @@ def get_commands_in_directory(directory):
         with open(home + "/" + HISTFILE, "r") as f:
             # Get commands from history which were executed in directory "directory"
             for line in f.readlines():
-                directory_in_history, command = split_after_first_semicolon(line.strip())
+                try:
+                    directory_in_history, command = split_after_first_semicolon(line.strip())
+                except ValueError:
+                    break
+
                 if directory_in_history == directory and len(commands_dir) < histsize:
                     commands_dir.append(command)
 
             # Get commands from history which where not executed in directory "directory"
             f.seek(0)
             for line in f.readlines():
-                directory_in_history, command = split_after_first_semicolon(line.strip())
+                try:
+                    directory_in_history, command = split_after_first_semicolon(line.strip())
+                except ValueError:
+                    break
+
                 if directory_in_history != directory and (len(commands_not_dir) + len(commands_dir)) < histsize:
                     commands_not_dir.append(command)
     except IOError:
