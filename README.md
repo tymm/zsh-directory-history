@@ -20,25 +20,20 @@ Since _directory-history_ comes with its own history, it will need some time to 
 INSTALL
 -------
 
-1. Copy `dirhist` and `dirlog` to `/usr/bin` or any other directory which is included in your PATH environment variable  
+1. Install needed python scripts
+         sudo pip install zsh-directory-history
 
-         cp dirhist /usr/bin/dirhist
-         cp dirlog /usr/bin/dirlog
+(Or copy `dirhist` and `dirlog` to `/usr/bin` manually and make them executable with `sudo chmod +x /usr/bin/dirhist /usr/bin/dirlog`)
 
-2. Adjust permissions
-
-         cd /usr/bin
-         sudo chmod +x dirhist dirlog
-
-3. Source plugins from your _.zshrc_
+2. Source plugins from your _.zshrc_
    * If you are already using the _zsh-history-substring-search_ plugin, please remove it now from your _.zshrc_ file.
-   * Now you have to include both `directory-history.plugin.zsh` and the modified version of `zsh-history-substring-search.zsh` into your _.zshrc_ file.  
+   * Now you have to include both `directory-history.plugin.zsh` and the modified version of `zsh-history-substring-search.zsh` in your _.zshrc_ file.  
    You can do that by appending those lines to your _.zshrc_ file.  
 
              source /path/to/directory-history.plugin.zsh
              source /path/to/modified/zsh-history-substring-search.zsh
 
-4. Bind keyboard shortcuts in your _.zshrc_  
+3. Bind keyboard shortcuts in your _.zshrc_  
 You can bind `history-substring-search-up`/`history-substring-search-down` for substring search and `directory-history-search-forward`/`directory-history-search-backward` for cycling through your per directory history one by one.  
 For example:
 
