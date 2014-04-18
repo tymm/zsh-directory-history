@@ -36,7 +36,7 @@ def get_commands_in_directory(directory):
                 try:
                     directory_in_history, command = split_after_first_semicolon(line.strip())
                 except ValueError:
-                    break
+                    continue
 
                 if directory_in_history == directory and len(commands_dir) < histsize:
                     commands_dir.append(command)
@@ -47,7 +47,7 @@ def get_commands_in_directory(directory):
                 try:
                     directory_in_history, command = split_after_first_semicolon(line.strip())
                 except ValueError:
-                    break
+                    continue
 
                 if directory_in_history != directory and (len(commands_not_dir) + len(commands_dir)) < histsize:
                     commands_not_dir.append(command)
