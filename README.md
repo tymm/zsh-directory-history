@@ -5,6 +5,13 @@ A per directory history for zsh.
 
 ![img](https://github.com/tymm/directory-history/wiki/demo.gif)
 
+USE CASE
+--------
+
+If you are a developer you will probably know the following situation: You are going to a certain project directory and then you are searching for this one command which was specific to this project or you just want to go through the last commands you typed into your shell while you were working in this directory.
+
+If you ever had this problem, this plugin will help you.
+
 DESCRIPTION
 -----------
 
