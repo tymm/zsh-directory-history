@@ -8,7 +8,7 @@ A per directory history for zsh.
 DESCRIPTION
 -----------
 
-zsh-directory-history is a zsh plugin giving you a history which is sensitive to the directory you are in.
+zsh-directory-history is a zsh plugin giving you a history which is sensitive to the directory you are in.  
 It implements forward/backward navigation as well as substring search (as [here](https://github.com/zsh-users/zsh-history-substring-search)) in a directory sensitive manner.
 
 Behavior:  
