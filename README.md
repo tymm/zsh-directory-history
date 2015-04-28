@@ -45,9 +45,8 @@ For example:
          # Bind CTRL+k and CTRL+j to substring search
          bindkey '^j' history-substring-search-up
          bindkey '^k' history-substring-search-down
-
-It is possible that \e[A and \e[B will not do the job for you.
-Look [here](https://github.com/zsh-users/zsh-history-substring-search) under 2. for more information
+It is possible that \e[A and \e[B will not work for you.
+Look [here](https://github.com/zsh-users/zsh-history-substring-search) under 2. for more information.
 
 
 For more information on how to configure substring search, take a look here: https://github.com/zsh-users/zsh-history-substring-search
