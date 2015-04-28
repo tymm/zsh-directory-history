@@ -41,11 +41,13 @@ For example:
          # Bind up/down arrow keys to navigate through your history
          bindkey '\e[A' directory-history-search-backward
          bindkey '\e[B' directory-history-search-forward
-         # It is possible that \e[A and \e[B will not do the job for you
-         # Look [here](https://github.com/zsh-users/zsh-history-substring-search) under 2. for more information
 
          # Bind CTRL+k and CTRL+j to substring search
          bindkey '^j' history-substring-search-up
          bindkey '^k' history-substring-search-down
+
+It is possible that \e[A and \e[B will not do the job for you.
+Look [here](https://github.com/zsh-users/zsh-history-substring-search) under 2. for more information
+
 
 For more information on how to configure substring search, take a look here: https://github.com/zsh-users/zsh-history-substring-search
