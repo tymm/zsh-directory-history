@@ -15,7 +15,7 @@ Behavior:
 * Commands executed in the current directory will pop up first when navigating the history or using substring search.  
 * A substring unknown in the current directory, will be searched for globally (it falls back to the normal substring search behavior).
 
-Since the plugin creates its own history, it needs some time to fill up and become useful.
+Since the plugin creates its own history (in `~/.directory_history`), it needs some time to fill up and become useful.
 
 INSTALL
 -------
