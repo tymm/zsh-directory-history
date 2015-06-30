@@ -23,8 +23,8 @@ INSTALL
 1. Install scripts
 
          git clone https://github.com/tymm/zsh-directory-history
-         cp zsh-directory-history/dirhist /usr/bin/
-         cp zsh-directory-history/dirlog /usr/bin/
+         sudo cp zsh-directory-history/dirhist /usr/bin/
+         sudo cp zsh-directory-history/dirlog /usr/bin/
          sudo chmod +x /usr/bin/dirhist /usr/bin/dirlog
 
   (Or just type `sudo pip install zsh-directory-history`)
