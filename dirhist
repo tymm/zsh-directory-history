@@ -5,7 +5,7 @@ from collections import OrderedDict
 from os.path import expanduser
 
 # Size of the history
-histsize = 10000
+HISTSIZE = 10000
 
 # History file
 HISTFILE = ".directory_history"
@@ -13,8 +13,13 @@ HISTFILE = ".directory_history"
 # Home directory of user
 home = expanduser("~")
 
-def split_after_first_semicolon(text):
-    return text.split(";", 1)
+def get_dir_and_command(line):
+    parts = line.split(";")
+    return (parts[1], parts[2])
+
+def get_dir_and_command_previous_version(line):
+    parts = line.split(";")
+    return (parts[0], parts[1])
 
 def remove_duplicates(commands):
     seen = None
@@ -34,22 +39,34 @@ def get_commands_in_directory(directory):
             # Get commands from history which were executed in directory "directory"
             for line in f.readlines():
                 try:
-                    directory_in_history, command = split_after_first_semicolon(line.strip())
+                    directory_in_history, command = get_dir_and_command(line.strip())
                 except ValueError:
                     continue
+                except IndexError:
+                    # User still uses format from version 1.0
+                    try:
+                        directory_in_history, command = get_dir_and_command_previous_version(line.strip())
+                    except ValueError:
+                        continue
 
-                if directory_in_history == directory and len(commands_dir) < histsize:
+                if directory_in_history == directory and len(commands_dir) < HISTSIZE:
                     commands_dir.append(command)
 
             # Get commands from history which where not executed in directory "directory"
             f.seek(0)
             for line in f.readlines():
                 try:
-                    directory_in_history, command = split_after_first_semicolon(line.strip())
+                    directory_in_history, command = get_dir_and_command(line.strip())
                 except ValueError:
                     continue
+                except IndexError:
+                    # User still uses format from version 1.0
+                    try:
+                        directory_in_history, command = get_dir_and_command_previous_version(line.strip())
+                    except ValueError:
+                        continue
 
-                if directory_in_history != directory and (len(commands_not_dir) + len(commands_dir)) < histsize:
+                if directory_in_history != directory and (len(commands_not_dir) + len(commands_dir)) < HISTSIZE:
                     commands_not_dir.append(command)
     except IOError:
         open(home + "/" + HISTFILE, 'a').close()
