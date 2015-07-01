@@ -1,6 +1,3 @@
-# Don't name the prompt DIR_HISTORY
-unsetopt autonamedirs
-
 # Generates a new history for the current directory
 function generate_history() {
   history_dir=("${(@f)$(dirhist -a -d $PWD)}")
@@ -16,19 +13,9 @@ function log_command() {
   dirlog $1 $PWD
 }
 
-# Export the current directory
-function log_directory() {
-  DIR_HISTORY=$PWD
-  export DIR_HISTORY
-}
-
-# Call log_directory() everytime the directory is changed
-chpwd_functions=(${chpwd_functions[@]} "log_directory")
 # Call generate_history() everytime the directory is changed
 chpwd_functions=(${chpwd_functions[@]} "generate_history")
 
-# Call log_directory() everytime the user opens a prompt
-precmd_functions=(${precmd_functions[@]} "log_directory")
 # Call generate_history() everytime the user opens a prompt
 precmd_functions=(${precmd_functions[@]} "generate_history")
 
