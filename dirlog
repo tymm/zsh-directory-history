@@ -10,7 +10,7 @@ if len(sys.argv) != 3:
 command = sys.argv[1]
 directory = sys.argv[2]
 home = expanduser("~")
-timestamp = time.time()
+timestamp = int(time.time())
 
 with open(home + "/.directory_history", "a") as f:
     # Append ": timestamp:0;directory;command"
