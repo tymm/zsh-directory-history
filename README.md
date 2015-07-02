@@ -27,8 +27,6 @@ INSTALL
          sudo cp zsh-directory-history/dirlog /usr/bin/
          sudo chmod +x /usr/bin/dirhist /usr/bin/dirlog
 
-  (Or just type `sudo pip install zsh-directory-history`)
-
 2. Activate plugin by appending the following line to your _.zshrc_ file
 
          source /path/to/directory-history.plugin.zsh
