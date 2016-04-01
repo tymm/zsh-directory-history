@@ -36,8 +36,8 @@ def get_commands_in_directory(directory):
     commands_not_dir = []
     try:
         with open(home + "/" + HISTFILE, "r") as f:
-            # Get commands from history which were executed in directory "directory"
-            for line in f.readlines():
+            # Get commands from this directory
+            for line in reversed(f.readlines()):
                 try:
                     directory_in_history, command = get_dir_and_command(line.strip())
                 except ValueError:
@@ -49,12 +49,15 @@ def get_commands_in_directory(directory):
                     except ValueError:
                         continue
 
-                if directory_in_history == directory and len(commands_dir) < HISTSIZE:
+                if len(commands_dir) >= HISTSIZE:
+                    break
+
+                if directory_in_history == directory:
                     commands_dir.append(command)
 
-            # Get commands from history which where not executed in directory "directory"
+            # Get commands not in this directory
             f.seek(0)
-            for line in f.readlines():
+            for line in reversed(f.readlines()):
                 try:
                     directory_in_history, command = get_dir_and_command(line.strip())
                 except ValueError:
@@ -66,14 +69,16 @@ def get_commands_in_directory(directory):
                     except ValueError:
                         continue
 
-                if directory_in_history != directory and (len(commands_not_dir) + len(commands_dir)) < HISTSIZE:
+                if len(commands_not_dir) + len(commands_dir) >= HISTSIZE:
+                    break
+
+                if directory_in_history != directory:
                     commands_not_dir.append(command)
     except IOError:
         open(home + "/" + HISTFILE, 'a').close()
 
-    # More important/recent commands go towards the end of the list
-    # Thats why commands_dir comes after commands_not_dir
-    commands = commands_not_dir + commands_dir
+    # More important/recent commands at the start
+    commands = commands_dir + commands_not_dir
 
     # Removing duplicates which are next to each other
     commands = remove_duplicates(commands)
