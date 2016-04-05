@@ -1,6 +1,6 @@
 # Generates a new history for the current directory
 function generate_history() {
-  history_dir=("${(@f)$(dirhist -a -d $PWD)}")
+  history_dir=("${(@ps.\0\n.)$(dirhist -a -d $PWD)}")
   export history_dir
   MAX_INDEX_HISTORY=$#history_dir
   export MAX_INDEX_HISTORY
@@ -25,7 +25,7 @@ preexec_functions=(${preexec_functions[@]} "log_command")
 preexec_functions=(${preexec_functions[@]} "generate_history")
 
 # generate_history() gets executed after the following so we have to generate it here to get access to $history_dir
-history_dir=("${(@f)$(dirhist -a -d $PWD)}")
+history_dir=("${(@ps.\0\n.)$(dirhist -a -d $PWD)}")
 
 directory-history-search-forward() {
   # Go forward as long as possible; Last command is at $history_dir[1]

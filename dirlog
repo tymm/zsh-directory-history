@@ -13,5 +13,5 @@ home = expanduser("~")
 timestamp = int(time.time())
 
 with open(home + "/.directory_history", "a") as f:
-    # Append ": timestamp:0;directory;command"
-    f.write(": " + str(timestamp) + ":0;" + directory + ";" + command + "\n")
+    # Append ": timestamp:0;directory;command\0\n"
+    f.write(": " + str(timestamp) + ":0;" + directory + ";" + command + "\0\n")

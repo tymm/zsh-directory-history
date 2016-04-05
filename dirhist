@@ -17,10 +17,6 @@ def get_dir_and_command(line):
     parts = line.split(";")
     return (parts[1], parts[2])
 
-def get_dir_and_command_previous_version(line):
-    parts = line.split(";")
-    return (parts[0], parts[1])
-
 def remove_duplicates(commands):
     seen = None
     no_duplicates = []
@@ -37,17 +33,11 @@ def get_commands_in_directory(directory):
     try:
         with open(home + "/" + HISTFILE, "r") as f:
             # Get commands from this directory
-            for line in reversed(f.readlines()):
+            for line in reversed(f.read().strip().strip('\0').split('\0')):
                 try:
                     directory_in_history, command = get_dir_and_command(line.strip())
                 except ValueError:
                     continue
-                except IndexError:
-                    # User still uses format from version 1.0
-                    try:
-                        directory_in_history, command = get_dir_and_command_previous_version(line.strip())
-                    except ValueError:
-                        continue
 
                 if len(commands_dir) >= HISTSIZE:
                     break
@@ -57,17 +47,11 @@ def get_commands_in_directory(directory):
 
             # Get commands not in this directory
             f.seek(0)
-            for line in reversed(f.readlines()):
+            for line in reversed(f.read().strip().strip('\0').split('\0')):
                 try:
                     directory_in_history, command = get_dir_and_command(line.strip())
                 except ValueError:
                     continue
-                except IndexError:
-                    # User still uses format from version 1.0
-                    try:
-                        directory_in_history, command = get_dir_and_command_previous_version(line.strip())
-                    except ValueError:
-                        continue
 
                 if len(commands_not_dir) + len(commands_dir) >= HISTSIZE:
                     break
@@ -77,8 +61,8 @@ def get_commands_in_directory(directory):
     except IOError:
         open(home + "/" + HISTFILE, 'a').close()
 
-    # More important/recent commands at the start
-    commands = commands_dir + commands_not_dir
+    # Least important command needs to be at the start
+    commands = list(reversed(commands_not_dir)) + list(reversed(commands_dir))
 
     # Removing duplicates which are next to each other
     commands = remove_duplicates(commands)
@@ -86,6 +70,7 @@ def get_commands_in_directory(directory):
     return commands
 
 def get_indices_by_substring_and_directory(directory, substring):
+    # Reverse since zsh-history-substring-search plugin wants most recent command to be at the end
     commands = get_commands_in_directory(directory)
 
     indices = []
@@ -94,7 +79,7 @@ def get_indices_by_substring_and_directory(directory, substring):
             index = commands.index(cmd)+1
             indices.append(index)
 
-    # Remove duplicates - removing duplicates from the front
+    # Remove duplicates from the front since first command needs to be at the end of list
     # [4,3,2,1,4] -> [3,2,1,4]
     indices.reverse()
     indices_unique = list(OrderedDict.fromkeys(indices))
@@ -106,7 +91,7 @@ def get_indices_by_substring_and_directory(directory, substring):
 if len(sys.argv) == 4 and (sys.argv[1] == "-a" or sys.argv[1] == "--all") and (sys.argv[2] == "-d"):
     directory = sys.argv[3]
 
-    print "\n".join(get_commands_in_directory(directory))
+    print "\0\n".join(get_commands_in_directory(directory))
 
 # Return list of indizes which match a given substring
 # dirhist -s/--substring SUBSTRING -d DIRECTORY
