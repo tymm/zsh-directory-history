@@ -15,7 +15,7 @@ home = expanduser("~")
 
 def get_dir_and_command(line):
     parts = line.split(";")
-    return (parts[1], parts[2])
+    return (parts[1], ";".join(parts[2:]))
 
 def remove_duplicates(commands):
     seen = None
