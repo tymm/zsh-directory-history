@@ -18,6 +18,7 @@ def get_dir_and_command(line):
     return (parts[1], ";".join(parts[2:]))
 
 def remove_duplicates(commands):
+    """Remove duplicate entries in commands."""
     seen = None
     no_duplicates = []
     for cmd in commands:
@@ -28,7 +29,8 @@ def remove_duplicates(commands):
     return no_duplicates
 
 def read_backwards(f, num_lines, delimiter, blocksize=1024):
-    # Read num_lines from end of file without loading whole file
+    """Read num_lines seperated by delimiter from end of file without
+    loading whole file."""
     f.seek(0, 2)
     end = f.tell()
     block_number = -1
@@ -50,6 +52,15 @@ def read_backwards(f, num_lines, delimiter, blocksize=1024):
     return ''.join(reversed(blocks))
 
 def get_commands_in_directory(directory):
+    """Returns all commands executed in directory.
+
+    Duplicates will be removed and more important commands will be at
+    the end of the returned list.
+    The most recent command in directory is considered the most
+    important command.
+    The oldest command from all other directories is considered the
+    least important command.
+    """
     commands_dir = []
     commands_not_dir = []
     try:
@@ -82,13 +93,13 @@ def get_commands_in_directory(directory):
     # Least important command needs to be at the start
     commands = list(reversed(commands_not_dir)) + list(reversed(commands_dir))
 
-    # Removing duplicates which are next to each other
+    # Remove duplicates which are next to each other
     commands = remove_duplicates(commands)
 
     return commands
 
 def get_indices_by_substring_and_directory(directory, substring):
-    # Reverse since zsh-history-substring-search plugin wants most recent command to be at the end
+    """Return indices of substrings from a certain directory."""
     commands = get_commands_in_directory(directory)
 
     indices = []
