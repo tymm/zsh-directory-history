@@ -27,27 +27,45 @@ def remove_duplicates(commands):
 
     return no_duplicates
 
+def read_backwards(f, num_lines, delimiter, blocksize=1024):
+    # Read num_lines from end of file without loading whole file
+    f.seek(0, 2)
+    end = f.tell()
+    block_number = -1
+    blocks = []
+
+    while num_lines > 0 and end > 0:
+        if (end - blocksize > 0):
+            f.seek(block_number*blocksize, 2)
+            blocks.append(f.read(blocksize))
+        else:
+            # Read remaining data
+            f.seek(0,0)
+            blocks.append(f.read(end))
+
+        num_lines -= blocks[-1].count(delimiter)
+        end -= blocksize
+        block_number -= 1
+
+    return ''.join(reversed(blocks))
+
 def get_commands_in_directory(directory):
     commands_dir = []
     commands_not_dir = []
     try:
         with open(home + "/" + HISTFILE, "r") as f:
             # Get commands from this directory
-            for line in reversed(f.read().strip().strip('\0').split('\0')):
+            for line in reversed(read_backwards(f, HISTSIZE, '\0').strip().strip('\0').split('\0')):
                 try:
                     directory_in_history, command = get_dir_and_command(line.strip())
                 except (ValueError, IndexError):
                     continue
 
-                if len(commands_dir) >= HISTSIZE:
-                    break
-
                 if directory_in_history == directory:
                     commands_dir.append(command)
 
             # Get commands not in this directory
-            f.seek(0)
-            for line in reversed(f.read().strip().strip('\0').split('\0')):
+            for line in reversed(read_backwards(f, HISTSIZE, '\0').strip().strip('\0').split('\0')):
                 try:
                     directory_in_history, command = get_dir_and_command(line.strip())
                 except (ValueError, IndexError):
