@@ -25,7 +25,6 @@ INSTALL
          git clone https://github.com/tymm/zsh-directory-history
          sudo cp zsh-directory-history/dirhist /usr/bin/
          sudo cp zsh-directory-history/dirlog /usr/bin/
-         sudo chmod +x /usr/bin/dirhist /usr/bin/dirlog
 
 2. Activate plugin by appending the following line to your _.zshrc_ file
 
