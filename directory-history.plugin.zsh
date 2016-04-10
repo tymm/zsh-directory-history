@@ -1,16 +1,21 @@
 # Generates a new history for the current directory
 function generate_history() {
   history_dir=("${(@ps.\0\n.)$(dirhist -a -d $PWD)}")
-  export history_dir
   MAX_INDEX_HISTORY=$#history_dir
-  export MAX_INDEX_HISTORY
   (( INDEX_HISTORY = $#history_dir + 1 ))
-  export INDEX_HISTORY
+
+  # After creating a new history_dir we possibly have to adjust $_history_substring_search_matches
+  refresh_substring_search_matches
 }
 
 # Append to history file
 function log_command() {
   dirlog $1 $PWD
+}
+
+# Refresh substring search
+function refresh_substring_search_matches() {
+  _history_substring_search_matches=("${(@f)$(dirhist -s "${_history_substring_search_query_escaped}" -d $PWD)}")
 }
 
 # Call generate_history() everytime the directory is changed
@@ -21,6 +26,7 @@ precmd_functions=(${precmd_functions[@]} "generate_history")
 
 # Call log_command() everytime a command is executed
 preexec_functions=(${preexec_functions[@]} "log_command")
+
 # Call generate_history() everytime a command is executed
 preexec_functions=(${preexec_functions[@]} "generate_history")
 
