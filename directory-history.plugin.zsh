@@ -18,6 +18,11 @@ function refresh_substring_search_matches() {
   _history_substring_search_matches=("${(@f)$(dirhist -s "${_history_substring_search_query_escaped}" -d $PWD)}")
 }
 
+# Reset $_history_substring_search_result after every command
+function reset_substring_search() {
+  _history_substring_search_result=
+}
+
 # Call generate_history() everytime the directory is changed
 chpwd_functions=(${chpwd_functions[@]} "generate_history")
 
@@ -29,6 +34,9 @@ preexec_functions=(${preexec_functions[@]} "log_command")
 
 # Call generate_history() everytime a command is executed
 preexec_functions=(${preexec_functions[@]} "generate_history")
+
+# Call reset() everytime a command is executed
+preexec_functions=(${preexec_functions[@]} "reset_substring_search")
 
 # generate_history() gets executed after the following so we have to generate it here to get access to $history_dir
 history_dir=("${(@ps.\0\n.)$(dirhist -a -d $PWD)}")
