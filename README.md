@@ -1,6 +1,8 @@
 zsh-directory-history
 =================
 
+[![Join the chat at https://gitter.im/tymm/zsh-directory-history](https://badges.gitter.im/tymm/zsh-directory-history.svg)](https://gitter.im/tymm/zsh-directory-history?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A per directory history for zsh.
 
 [![asciicast](https://asciinema.org/a/7z5h32eutd5fk1ec5ujlwyw0p.png)](https://asciinema.org/a/7z5h32eutd5fk1ec5ujlwyw0p)
