@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 import sys
 import os
+import re
 from collections import OrderedDict
 from os.path import expanduser
 
@@ -104,9 +105,12 @@ def get_indices_by_substring_and_directory(directory, substring):
     """Return indices of substrings from a certain directory."""
     commands = get_commands_in_directory(directory)
 
+    # Remove backslashes in front of ][()|\*?#<>~^
+    substring_no_escape = re.sub(r'\\([\][()|\\*?#<>~^])', r'\1', substring)
+
     indices = []
     for cmd in commands:
-        if substring.lower() in cmd.lower():
+        if substring_no_escape.lower() in cmd.lower():
             index = commands.index(cmd)+1
             indices.append(index)
 
