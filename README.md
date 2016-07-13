@@ -20,11 +20,10 @@ Since the plugin creates its own history (in `~/.directory_history`), it needs s
 INSTALL
 -------
 
-1. Install scripts
+1. Install script
 
          git clone https://github.com/tymm/zsh-directory-history
          sudo cp zsh-directory-history/dirhist /usr/bin/
-         sudo cp zsh-directory-history/dirlog /usr/bin/
 
 2. Activate plugin by appending the following line to your _.zshrc_ file
 
