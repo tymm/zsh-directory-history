@@ -50,7 +50,6 @@ directory-history-search-forward() {
   zle kill-whole-line
   BUFFER=$COMMAND
   zle end-of-line
-  zle vi-backward-char
 }
 
 directory-history-search-backward() {
@@ -67,7 +66,6 @@ directory-history-search-backward() {
     zle kill-whole-line
     BUFFER=$COMMAND
     zle end-of-line
-    zle vi-backward-char
   fi
 }
 
