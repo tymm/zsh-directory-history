@@ -1,3 +1,5 @@
+zmodload zsh/datetime
+
 # Generates a new history for the current directory
 function generate_history() {
   history_dir=("${(@ps.\0\n.)$(dirhist -a -d $PWD)}")
@@ -10,7 +12,7 @@ function generate_history() {
 
 # Append to history file
 function log_command() {
-  dirlog $1 $PWD
+  echo -n ": ${EPOCHSECONDS}:0;${PWD};${1}\0\n" >> ~/.directory_history
 }
 
 # Refresh substring search
