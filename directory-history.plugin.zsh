@@ -12,7 +12,9 @@ function generate_history() {
 
 # Append to history file
 function log_command() {
-  echo -n ": ${EPOCHSECONDS}:0;${PWD};${1}\0\n" >> ~/.directory_history
+  if [[ "${1}" != ${~HISTORY_IGNORE} ]]; then
+    echo -n ": ${EPOCHSECONDS}:0;${PWD};${1}\0\n" >> ~/.directory_history
+  fi
 }
 
 # Refresh substring search
