@@ -10,12 +10,15 @@ function generate_history() {
   refresh_substring_search_matches
 }
 
+last_command=""
 # Append to history file
 function log_command() {
   [[ "${1}" = \ * ]] && [[ "$HISTCONTROL" =~ "ignorespace" ]] && return
   if [[ "${1}" != ${~HISTORY_IGNORE} ]]; then
+    [[ "${1}" == "$last_command" ]] && [[ "$HISTCONTROL" =~ "ignoredups" ]] && return
     echo -n ": ${EPOCHSECONDS}:0;${PWD};${1}\0\n" >> ~/.directory_history
   fi
+  last_command="${1}"
 }
 
 # Refresh substring search
@@ -45,6 +48,7 @@ preexec_functions=(${preexec_functions[@]} "reset_substring_search")
 
 # generate_history() gets executed after the following so we have to generate it here to get access to $history_dir
 history_dir=("${(@ps.\0\n.)$(dirhist -a -d $PWD)}")
+last_command="$history_dir[${#history_dir[@]}]"
 
 directory-history-search-forward() {
   # Go forward as long as possible; Last command is at $history_dir[1]
