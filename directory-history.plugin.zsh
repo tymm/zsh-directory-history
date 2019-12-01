@@ -12,7 +12,7 @@ function generate_history() {
 
 # Append to history file
 function log_command() {
-  if [[ "${1}" != ${~HISTORY_IGNORE} ]]; then
+  if [[ ! "${1}" = \ * ]] && [[ "${1}" != ${~HISTORY_IGNORE} ]]; then
     echo -n ": ${EPOCHSECONDS}:0;${PWD};${1}\0\n" >> ~/.directory_history
   fi
 }
